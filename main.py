@@ -1,14 +1,15 @@
 from tkinter import *
 import random
 from PIL import Image, ImageTk
+
 names = []
-global questions_answers
-asked = []   
+asked = []
+score=0
 
 questions_answers = {
-    1: ["What must you do when you see blue and red flashing lights behind you?", 'Speed up to get out of the way', 'Slow down and drive carefully','Slow down and stop', 'Drive on as usual' ,'Slow down and stop',3],
-    2: ["You may stop on a motorway only:",'if there is an emergency','To let down or pick up passengers','to make a U-turn','to stop and take a photo', 'if there is an emergency',1],
-    3: ["When coming up to a pedestrian crossing without a raised traffic island, what must you do?", 'Speed up before the pedestrians cross','Stop and give way to pedestrians on any part of the crossing', 'Sound the horn on your vehicle to warn the perestrians','slow down to 30kmh','Stop and give way to pedestrians on any part of the crossing',2],
+    1: ["Which type among the following expansion slots are used solely for a video card?", 'PCI', 'AGP','ISA', 'EISA' ,'PCI',1],
+    2: ["What’s does RAM stand for?",'Rapid access memory','Random access memory','Rigid access memory','Read/write access memory', 'Random access memory',2], 
+    3: ["What does GPU stand for?", 'Graphics proliferation unit','Graphics processing unit', 'Graphics protocol unit','Graphics processer unit','Graphics processing unit',2],
 }
 
 def randomiser():
@@ -52,32 +53,79 @@ class Quiz:
    def __init__(self, parent):
     background_color="lightgrey"
    
-    self.quiz_frame = Frame(parent, bg = background_color, padx=40, pady=40)
+    self.quiz_frame = Frame(parent, bg = background_color, padx=300, pady=158)
     self.quiz_frame.grid()
 
     randomiser()
 
-    self.question_label=Label(self.quiz_frame, text = questions_answers[qnum][0], font =( "Tw Cen MT","18","bold"))
+    self.question_label=Label(window, text = questions_answers[qnum][0], font =( "Tw Cen MT","18","bold"))
     self.question_label.grid(row= 0, padx=10, pady=10)  
 
     self.var1=IntVar()
 
-    self.rb1 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][1], font=("Helvetica", "12"), bg=background_color, value=1, variable=self.var1, pady=10)
+    self.rb1 = Radiobutton(window, text = questions_answers[qnum][1], font=("Helvetica", "12"), bg=background_color, value=1, variable=self.var1, pady=10)
     self.rb1.grid(row=1, sticky=W)
 
-    self.rb2 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][2], font=("Helvetica", "12"), bg=background_color, value=1, variable=self.var1, pady=10)
+    self.rb2 = Radiobutton(window, text = questions_answers[qnum][2], font=("Helvetica", "12"), bg=background_color, value=2, variable=self.var1, pady=10)
     self.rb2.grid(row=2, sticky=W)
 
-    self.rb3 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][3], font=("Helvetica", "12"), bg=background_color, value=1, variable=self.var1, pady=10)
+    self.rb3 = Radiobutton(window, text = questions_answers[qnum][3], font=("Helvetica", "12"), bg=background_color, value=3, variable=self.var1, pady=10)
     self.rb3.grid(row=3, sticky=W)
 
-    self.rb4 = Radiobutton (self.quiz_frame, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg=background_color, value=1, variable=self.var1, pady=10)
+    self.rb4 = Radiobutton(window, text = questions_answers[qnum][4], font=("Helvetica", "12"), bg=background_color, value=4, variable=self.var1, pady=10)
     self.rb4.grid(row=4, sticky=W)
 
-    self.confirm_button = Button(self.quiz_frame, text="Confrim",bg="white")
+    self.confirm_button = Button(window, text="Confrim",bg="white",command=self.test_progress)
     self.confirm_button.grid(row=6)
-
+    self.score_label  = Label(window, text =
+                             'score')
+    self.score_label.grid(row= 7)  
      
+     
+   def questions_setup(self):
+     randomiser()
+     self.var1.set(0)
+     self.question_label.config(text=questions_answers[qnum][0])
+     self.rb1.config(text=questions_answers[qnum][1])
+     self.rb2.config(text=questions_answers[qnum][2])
+     self.rb3.config(text=questions_answers[qnum][3])
+     self.rb4.config(text=questions_answers[qnum][4])
+
+
+
+   def test_progress(self):
+      global score
+      score = 0
+      scr_label=self.score_label
+      choice=self.var1.get()
+      if len(asked)>9:
+        if choice == questions_answers[qnum][6]:
+          score +=1
+          scr_label.configure(text=score)
+          self.confirm_button.config(text="Confirm")
+        else:
+          score+=0
+          scr_label.configure(text="The correct answer was: "+ questions_answers[qnum][5] )
+          self.confirm_button.config(text="confirm")
+     
+      else:
+            if choice==0:
+              self.confirm_button.config(text="Try Again, you didn't select an option then submit again" )
+              choice=self.var1.get()
+            else:
+              if choice == questions_answers[qnum][6]:
+                score+=1
+                scr_label.configure(text=score)
+                self.confirm_button.config(text="confirm")
+                self.questions_setup()
+ 
+              else:
+                  score+=0
+                  scr_label.configure(text="The correct answer was: " + questions_answers[qnum][5])
+                  self.confirm_button.config(text="Confirm")
+                  self.questions_setup()
+       
+
 if __name__== "__main__":
     window = Tk()
     window.title("12CSC Quiz")
