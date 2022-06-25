@@ -78,8 +78,16 @@ class Quiz:
     self.confirm_button.grid(row=6)
 
      
-if __name__ == "__main__":
-  root = Tk()
-  root.title("General Knowlage Computer Building Quiz.")
-  quiz_instance = QuizStarter(root)
-  root.mainloop()
+if __name__== "__main__":
+    window = Tk()
+    window.title("12CSC Quiz")
+    window.geometry("500x600")
+    bg_image = Image.open("Computer.jpg")
+    bg_image = bg_image.resize((1000,600),Image.ANTIALIAS)
+    bg_image = ImageTk.PhotoImage(bg_image)
+    image_label= Label(window, image=bg_image)
+    image_label.place(x=0, y=0, relwidth=1, relheight=1)
+    start_object = QuizStarter(window)
+
+    window.mainloop()
+
