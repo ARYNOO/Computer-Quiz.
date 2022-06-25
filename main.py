@@ -81,7 +81,7 @@ class Quiz:
 if __name__== "__main__":
     window = Tk()
     window.title("12CSC Quiz")
-    window.geometry("500x600")
+    window.geometry("600x500")
     bg_image = Image.open("Computer.jpg")
     bg_image = bg_image.resize((1000,600),Image.ANTIALIAS)
     bg_image = ImageTk.PhotoImage(bg_image)
