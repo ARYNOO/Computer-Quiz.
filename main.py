@@ -93,7 +93,7 @@ class Quiz:
      self.var1.set(0)
      self.question_label.config(text=self.questions_answers[qnum][0])
      self.rb1.config(text=self.questions_answers[qnum][1])
-     self.rb2.config(text=self.uestions_answers[qnum][2])
+     self.rb2.config(text=self.questions_answers[qnum][2])
      self.rb3.config(text=self.questions_answers[qnum][3])
      self.rb4.config(text=self.questions_answers[qnum][4])
  
