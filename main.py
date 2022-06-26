@@ -18,19 +18,19 @@ class QuizStarter:
   def __init__(self, parent):
     background_color="lightgrey"
 
-    self.heading_label=Label(window, text = "Computer Parts Quiz", font =( "Tw Cen MT","18","bold"),bg=background_color)
-    self.heading_label.place(x=100,y=100)
+    self.heading_label=Label(window, text = "Computer Parts Quiz!", font =( "Tw Cen MT","18","bold"),bg=background_color)
+    self.heading_label.place(x=200,y=150)
 
     self.var1=IntVar()
 
-    self.user_label=Label(window, text="Enter name: ", font=( "Tw Cen MT","18","bold"),bg=background_color)
-    self.user_label.place(x=468,y=100)
+    self.user_label=Label(window, text="Please enter name: ", font=( "Tw Cen MT","18","bold"),bg=background_color)
+    self.user_label.place(x=215,y=200)
 
     self.entry_box=Entry(window)
-    self.entry_box.place(x=475,y=150)
+    self.entry_box.place(x=260,y=250)
 
     self.continue_button = Button(window, text="Start Quiz", font=( "Helvetica","13","bold"), bg="lightblue",command=self.name_collection)
-    self.continue_button.place(x=500, y=200)
+    self.continue_button.place(x=290, y=295)
    
 
   def name_collection(self):
@@ -128,7 +128,7 @@ class Quiz:
               else:
                   score+=0
                   scr_label.configure(text="The correct answer was: " + self.questions_answers[qnum][5])
-                  self.confirm_button.config(text="Confirmn")
+                  self.confirm_button.config(text="Confirm")
                   self.questions_setup()
    
   def end_screen(self):
