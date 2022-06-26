@@ -18,7 +18,7 @@ class QuizStarter:
   def __init__(self, parent):
     background_color="lightgrey"
 
-    self.heading_label=Label(window, text = "Sports quiz", font =( "Tw Cen MT","18","bold"),bg=background_color)
+    self.heading_label=Label(window, text = "Computer Parts Quiz", font =( "Tw Cen MT","18","bold"),bg=background_color)
     self.heading_label.place(x=100,y=100)
 
     self.var1=IntVar()
