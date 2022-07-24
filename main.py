@@ -19,9 +19,9 @@ score = 0
 
 def randomiser():
     global qnum
-    qnum = random.randint(1, 10)
-
-    if qnum not in asked:
+    qnum = random.randint(1, 10) #this randomiszes the questions
+# check that the question is not already asked
+    if qnum not in asked: 
         asked.append(qnum)
     elif qnum in asked:
         randomiser()
@@ -29,14 +29,14 @@ def randomiser():
 
 # component one (quiz window)
 
-class quizwindow:
+class QuizWindow:
 
     def __init__(self, parent):
-        background_color = 'lightyellow'
+        background_color = 'lightyellow' #sets it as background color for all of the labels.
 
-        self.heading_label = Label(window, text='Computer Parts Quiz!',
+        self.heading_label = Label(window, text='Computer Parts Quiz!',   # heading label
                                    font=('Tw Cen MT', '18', 'bold'),
-                                   bg=background_color)  # heading label
+                                   bg=background_color)  
         self.heading_label.place(x=200, y=150)
 
         self.enter_label = Label(window, text='Please enter name: ',
@@ -47,7 +47,7 @@ class quizwindow:
         self.entry_box = Entry(window)  # entry box
         self.entry_box.place(x=265, y=250)
 
-        self.continue_button = Button(window, text='Start Quiz!',
+        self.continue_button = Button(window, text='Start Quiz!', #continue button 
                 font=('Comic Sans MS', '13', 'bold'), bg='purple',
                 command=self.name_collection)  # continue button
         self.continue_button.place(x=283, y=295)
@@ -57,35 +57,35 @@ class quizwindow:
 
         if name == '':
             messagebox.showerror('Name is required! :(',
-                                 'Please enter your name!')
+                                 'Please enter your name!') 
         elif len(name) > 15:
 
             messagebox.showerror('an error has occurred!',
-                                 'please enter a name between 1 and 15 characters'
+                                 'please enter a name between 1 and 15 characters' #this prevents names over 15
                                  )
         elif name.isnumeric():
             messagebox.showerror('an error has occurred!',
-                                 'Name can only consist of letters ONLY!!'
+                                 'Name can only consist of letters ONLY!!' #this makes sure only letters can be used
                                  )
         elif not name.isalpha():
 
-            messagebox.showerror('an error has occurred!',
-                                 'No Symbols Please! Please Try Again!')
+            messagebox.showerror('an error has occurred!', 
+                                 'No Symbols Please! Please Try Again!') #this makes sure symbols cannot be used
         else:
 
-            names.append(name)
+            names.append(name) 
             print (names)
-            self.heading_label.destroy()
-            self.enter_label.destroy()
-            self.entry_box.destroy()
-            self.continue_button.destroy()
-            computerquizquestion(window)
+            self.heading_label.destroy()  # destroys heading label
+            self.enter_label.destroy() # destroys enter label
+            self.entry_box.destroy() #destorys the entry box
+            self.continue_button.destroy() #destorys the continue button
+            ComputerQuizQuestion(window) #opens up the quiz questions page
 
 
-class computerquizquestion:
+class ComputerQuizQuestion:
 
     def __init__(self, parent):
-        background_color = 'purple'
+        background_color = 'purple' #background color
 
         self.questionans_dictionary = {
             1: [
@@ -117,7 +117,7 @@ class computerquizquestion:
                 4,
                 ],
             4: [
-                'What\xe2\x80\x99s does RAM stand for?',
+                'What does RAM stand for?',
                 'Rapid Access Memory',
                 'Random Access Memory',
                 'Rigid access memory',
@@ -145,7 +145,7 @@ class computerquizquestion:
                 3,
                 ],
             7: [
-                'What Socket Fits AMD\xe2\x84\xa2 Ryzen CPUs? \n (1000-4000SERIES)'
+                'What Socket Fits AMD™ Ryzen CPUs? \n (1000-4000SERIES)'
                     ,
                 'AM4',
                 'LGA 1200',
@@ -155,7 +155,7 @@ class computerquizquestion:
                 1,
                 ],
             8: [
-                'What Socket fits Intel\xe2\x84\xa2 12th Gen CPUs?',
+                'What Socket fits Intel™ 12th Gen CPUs?',
                 'LGA 1700',
                 'LGA 1200',
                 'AM3',
@@ -164,7 +164,7 @@ class computerquizquestion:
                 1,
                 ],
             9: [
-                'What Socket fits Amd\xe2\x84\xa2 Ryzen 7000 Series CPUs? '
+                'What Socket fits Amd™ Ryzen 7000 Series CPUs? '
                     ,
                 'AM4',
                 'AM5',
@@ -245,17 +245,17 @@ class computerquizquestion:
             )
         self.rb4.grid(row=4, sticky=W)
 
-        self.confirm_button = Button(window, text='Confrim', bg='Blue',
+        self.confirm_button = Button(window, text='Confrim', bg='lightgreen',
                 command=self.quiz_score)
-        self.confirm_button.place(x=300, y=235)
+        self.confirm_button.place(x=302, y=265)
 
         self.score_label = Label(window, text='score')
-        self.score_label.place(x=390, y=240)
+        self.score_label.place(x=325, y=359)
 
         self.leave = Button(window, text='Leave', font=('Helvetica',
                             '13', 'bold'), bg='red',
                             command=self.end_screen)
-        self.leave.place(x=200, y=235)
+        self.leave.place(x=300, y=300)
 
     def qa_setup(self):
         randomiser()
@@ -272,7 +272,7 @@ class computerquizquestion:
         choice = self.con1.get()
         if len(asked) > 9:
             if choice == self.questionans_dictionary[qnum][6]:
-                score += 1  # adds one point to score
+                score += 1  # adds + one point to score
                 score_label.configure(text=score)
                 self.confirm_button.config(text='Confirm')
                 self.end_screen()
@@ -302,36 +302,36 @@ class computerquizquestion:
                     score_label.configure(text='The correct answer was: '
                              + self.questionans_dictionary[qnum][5])
                     self.confirm_button.config(text='Confirm')
-                    self.qa_setup()  # move to next question
+                    self.qa_setup()  # move to next questions
 
     def end_screen(self):
         window.destroy()
         name = names[0]
 
-        open_end_object = end()
+        open_end_object = End()
 
 
-class end:
+class End:
 
     def __init__(self):
-        background_color = 'purple'
+        background_color = 'light yellow'
         global window2
         window2 = Tk()
-        window2.title('Exit Box')
+        window2.title('ARYAN NARAYAN')
         window2.geometry('700x600')
 
         self.end_frame = Frame(window2, width=700, height=600,
                                bg=background_color)
         self.end_frame.grid(row=1)
 
-        self.end_heading = Label(window2, text='You finshed the Quiz!',
+        self.end_heading = Label(window2, text='           You finshed the Quiz!', #end screen text
                                  font=('Tw Cen Mt', 22, 'bold'),
                                  bg=background_color)
         self.end_heading.place(x=50, y=50)
 
         self.exit_button = Button(
             window2,
-            text='Exit',
+            text='Exit', #exit button
             width=10,
             bg='red',
             font=('Tw Cen Mt', 12, 'bold'),
@@ -352,20 +352,20 @@ class end:
         window2.destroy()
 
 
-# program runs below
+# program runs below this 
 
 if __name__ == '__main__':
     window = Tk()
     window.title('Computer Parts Quiz!')
     window.geometry('700x600')
-    bg_image = Image.open('Computer.jpg')  # need to use Image if need to resize
+    bg_image = Image.open('Computer.jpg')  # image so we can resize
     bg_image = bg_image.resize((1000, 600), Image.ANTIALIAS)
     bg_image = ImageTk.PhotoImage(bg_image)
 
-    # image label
+    # image labels
 
     image_label = Label(window, image=bg_image)
     image_label.place(x=0, y=0, relwidth=1, relheight=1)
-    start_object = quizwindow(window)
+    start_object = QuizWindow(window)
 
     window.mainloop()  # so the window stays in place
